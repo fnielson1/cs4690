@@ -5,7 +5,7 @@ console.log('Loading...');
 var fs = require('fs');
 var express = require('express');
 var mongoDao = require('./mongoDao');
-var mysqlDao = require('./mysqlDao');
+//var mysqlDao = require('./mysqlDao');
 
 //modules below are express middleware
 var bodyParser = require('body-parser');
@@ -21,7 +21,7 @@ var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
 
     next();
-}
+};
 
 app.use(bodyParser.json());
 
@@ -50,7 +50,7 @@ var server = app.listen(port);
 function gracefulShutdown(){
     console.log("\nStarting shutdown...");
     server.close(function(){
-        connection.end();
+        //connection.end(); // MySql
         console.log('Shutdown complete.');
     });
 }

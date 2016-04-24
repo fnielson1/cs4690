@@ -33,7 +33,7 @@
             </div>
             <button id="newEntry" data-toggle="modal" data-target="#upsertModal" class="btn navbar-btn navbar-right" ng-click="siq.operation = 'New Entry'; siq.clear()">New Entry</button>
             <span class="searchIcon glyphicon glyphicon-search navbar-right"></span>
-            <input type="search" class="form-control navbar-right" id="search" placeholder="Search" ng-model="siq.search"></input>
+            <input type="search" class="form-control navbar-right" id="search" placeholder="Search" ng-model="siq.search"/>
             <button id="undo" class="btn navbar-btn navbar-right" hidden ng-show="siq.undo.length > 0" ng-click="siq.Undo(); $event.stopPropagation()">Undo Delete <span class="badge">{{siq.undo.length}}</span></button>
           </div>
         
