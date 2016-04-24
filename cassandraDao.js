@@ -8,7 +8,12 @@ var client = new cassandra.Client({contactPoints: ['127.0.0.1'], keyspace: 'test
 router.get('/api/v2/entries.json', function(req, res) {
     client.execute('select id, subject from entries_table', function(err, result){
         if(err) throw err;
-        res.status(200).json(result.rows);
+        var rows = result.rows;
+        rows.forEach(function (row) {
+            row._id = row.id.toString(); // Make it compatible with our controller
+            delete row.id; // Get rid of the extra property
+        });
+        res.status(200).json(rows);
     });
 });
 
