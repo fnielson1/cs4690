@@ -6,6 +6,7 @@ var fs = require('fs');
 var express = require('express');
 var mongoDao = require('./mongoDao');
 var cassandraDao = require('./cassandraDao');
+var redisDao = require('./redisDao');
 //var mysqlDao = require('./mysqlDao');
 
 //modules below are express middleware
@@ -32,7 +33,7 @@ app.use(compression());
 
 app.use(allowCrossDomain);
 
-app.use('/', cassandraDao);
+app.use('/', redisDao);
 
 
 //traditional webserver stuff for serving static files
