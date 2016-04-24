@@ -5,6 +5,7 @@ console.log('Loading...');
 var fs = require('fs');
 var express = require('express');
 var mongoDao = require('./mongoDao');
+var cassandraDao = require('./cassandraDao');
 //var mysqlDao = require('./mysqlDao');
 
 //modules below are express middleware
@@ -31,7 +32,7 @@ app.use(compression());
 
 app.use(allowCrossDomain);
 
-app.use('/', mongoDao);
+app.use('/', cassandraDao);
 
 
 //traditional webserver stuff for serving static files
@@ -40,7 +41,7 @@ app.use(favicon(WEB + '/favicon.ico'));
 app.use(express.static(WEB, {maxAge: '12h'}));
 app.get('*', function(req, res) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.status(404).sendFile(WEB + '/github404.png');
+    res.status(404).sendFile(WEB + '/404Error.png');
 });
 
 //var config = JSON.parse(fs.readFileSync("/dev/nodejs/resumeServer.json"));
