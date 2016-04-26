@@ -3,6 +3,7 @@
  */
 console.log('Loading...');
 var fs = require('fs');
+var socketIO = require('socket.io');
 var express = require('express');
 var mongoDao = require('./mongoDao');
 var cassandraDao = require('./cassandraDao');
@@ -45,9 +46,24 @@ app.get('*', function(req, res) {
     res.status(404).sendFile(WEB + '/404Error.png');
 });
 
-//var config = JSON.parse(fs.readFileSync("/dev/nodejs/resumeServer.json"));
 var port = process.env.port || 8080;
 var server = app.listen(port);
+var io = socketIO(server);
+
+// Socket connect
+io.on('connection', function(socket){
+    console.log('a user connected');
+
+    // Chat received
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+
+    // Disconnect
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+});
 
 function gracefulShutdown(){
     console.log("\nStarting shutdown...");
